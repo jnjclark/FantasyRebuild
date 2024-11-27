@@ -71,3 +71,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /FantasyRebuild/Library
+/FantasyRebuild/Temp
+/FantasyRebuild/obj/Debug
+/FantasyRebuild/Logs
+/FantasyRebuild/Logs
+FantasyRebuild/Logs/shadercompiler-UnityShaderCompiler.exe0.log
