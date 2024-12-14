@@ -117,8 +117,8 @@ public class Player : MonoBehaviour
     {
 
     }
-    public void AddProductionBoost(int amount) => totalProductionBoost += amount;
-    public void SubtractProductionBoost(int amount) => totalProductionBoost -= amount;
+    public void AddProductionBoost(float amount) => totalProductionBoost += amount;
+    public void SubtractProductionBoost(float amount) => totalProductionBoost -= amount;
 
     #endregion
 }
