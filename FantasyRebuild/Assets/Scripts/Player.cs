@@ -12,8 +12,25 @@ public class Player : MonoBehaviour
     public int buildingScore;
     //public List<Building> buildingList;
     public float totalProductionBoost;
+    public int nodeChargesPerCollect;       //how many charges are removed from a resource node when it's clicked
 
     Inventory inventory;
+
+    #region Singleton
+    public static Player instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+            instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
+    #endregion
 
     private void Start()
     {
@@ -22,9 +39,9 @@ public class Player : MonoBehaviour
     }
 
     //triggers node to collect their resources
-    public void CollectResource()
+    public void CollectResource(ResourceNode node)
     {
-        
+        node.RemoveResource(nodeChargesPerCollect);
     }
 
     public void PlaceBuilding()
@@ -86,8 +103,14 @@ public class Player : MonoBehaviour
     public void SubtractHappiness(int amount) => happiness -= amount;
     public void AddBuildingScore(int score) => buildingScore += score;
     public void SubtractBuildingScore(int score) => buildingScore -= score;
-    //public void AddBuildingList(Building building)
-    //public void RemoveBuildingList(Building building)
+    public void AddBuildingList(Building building)
+    {
+
+    }
+    public void RemoveBuildingList(Building building)
+    {
+
+    }
     public void AddProductionBoost(int amount) => totalProductionBoost += amount;
     public void SubtractProductionBoost(int amount) => totalProductionBoost -= amount;
 
