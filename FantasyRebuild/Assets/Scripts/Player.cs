@@ -39,9 +39,15 @@ public class Player : MonoBehaviour
     }
 
     //triggers node to collect their resources
-    public void CollectResource(ResourceNode node)
+    public void CollectResourceNode(ResourceNode node)
     {
         node.RemoveResource(nodeChargesPerCollect);
+    }
+
+    //triggers building to collect their resources
+    public void CollectResourceBuilding(ResourceBuilding building)
+    {
+        building.Collect();
     }
 
     public void PlaceBuilding()
