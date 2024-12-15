@@ -47,7 +47,7 @@ public class Dragon : MonoBehaviour
     }
 
     //calculates the closest building
-    public Transform getClosestBuilding(LinkedList<building>/* CHECK */ buildings)
+    public Transform getClosestBuilding(List<building>/* CHECK */ buildings)
     {
         Transform closestTarget = null;             //initialize closest target
         float closestDistanceSqr = Mathf.Infinity;
