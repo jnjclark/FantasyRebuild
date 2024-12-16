@@ -5,7 +5,7 @@ using UnityEngine;
 public class DayCycle : MonoBehaviour
 {
     public int currentDay;
-    public float dayLength
+    public float dayLength;
 
     private float currentTime;
     public int dragonCount;
@@ -15,12 +15,20 @@ public class DayCycle : MonoBehaviour
     public Vector2 dragonStart;
     public GameObject Grid;
 
+    //references to resource node prefabs
+    public GameObject woodNode;
+    public GameObject stoneNode;
+    public GameObject magicNode;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        /* TODO
+         * Set dayLength
+         * Set gamelength (days) last dragon battle day + 1
+        */
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -28,14 +36,31 @@ public class DayCycle : MonoBehaviour
         if (currentTime <= dayLength)
             currentTime += Time.deltaTime;
         else
+        {
             currentTime = 0;
-        IncreaseDay();
+            IncreaseDay();
+        }
     }
 
-    private void IncreaseDay()
+    #region Singleton
+    public static DayCycle instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+            instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
+    #endregion
+
+    public void IncreaseDay()
     {
         currentDay++;
-        Player
         if (currentDay % dragonCount == 0)
             TriggerDragon();
         else if (currentDay == gameLength)
@@ -55,7 +80,7 @@ public class DayCycle : MonoBehaviour
         //magic
         place = Grid.RandomFreeTransform();
         Instantiate(magicNode, place, Quaternion.identity);
-        Grid.SetOccupied(place);
+        Grid.SetOccupied(place, true);
     }
 
     void TriggerDragon()
