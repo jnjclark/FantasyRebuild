@@ -30,7 +30,7 @@ public class Dragon : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(Dragon);
+            Destroy(Dragon);                        //delete dragon
             increaseDay();
         }
     }
