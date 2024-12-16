@@ -1,0 +1,1 @@
+For the walls I was unsure how Unity would handle walls being place next to each other. I put each individual wall into one image as GameMaker Studio has the ability to recognize where a sprite is place and I wasnt sure it Unity had the same tool. If not I could seperate the wall sprite into seperate sprites.
