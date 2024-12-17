@@ -10,19 +10,41 @@ public class DayCycle : MonoBehaviour
     private float currentTime;
     public int dragonCount;
     public int gameLength;
-    public Player player;
     public GameObject dragon;
     public Vector2 dragonStart;
-    public GameObject Grid;
 
     //references to resource node prefabs
     public GameObject woodNode;
     public GameObject stoneNode;
     public GameObject magicNode;
 
+    //references to major components
+    Player player;
+    Grid grid;
+
+    #region Singleton
+    public static DayCycle instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+            instance = this;
+
+        DontDestroyOnLoad(gameObject);
+    }
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
+        //set references
+        player = Player.instance;
+        grid = Grid.instance;
+
         /* TODO
          
          * Set gamelength (days) last dragon battle day + 1
@@ -45,49 +67,37 @@ public class DayCycle : MonoBehaviour
         }
     }
 
-    #region Singleton
-    public static DayCycle instance;
-
-    void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(this);
-        }
-        else
-            instance = this;
-
-        DontDestroyOnLoad(gameObject);
-    }
-    #endregion
-
     public void IncreaseDay()
     {
         currentDay++;
+
+        //adjust population
+        player.AdjustPopulation();
+
+        //check if spawn dragon
         if (currentDay % dragonCount == 0)
             TriggerDragon();
+        //check if game end
         else if (currentDay == gameLength)
             EndGame();//EndGame()?
     }
 
     public void AddResources()
     {
-        Grid gridComponent = Grid.GetComponent<Grid>();
-
         //wood
-        Vector2 place = gridComponent.RandomFreeTransform();
+        Vector2 place = grid.RandomFreeTransform();
         Instantiate(woodNode, place, Quaternion.identity);
-        gridComponent.SetOccupied(place, true); // Mark the position as occupied
+        grid.SetOccupied(place, true); // Mark the position as occupied
 
         //stone
-        place = gridComponent.RandomFreeTransform();
+        place = grid.RandomFreeTransform();
         Instantiate(stoneNode, place, Quaternion.identity);
-        gridComponent.SetOccupied(place, true); // Mark the position as occupied
+        grid.SetOccupied(place, true); // Mark the position as occupied
 
         //magic
-        place = gridComponent.RandomFreeTransform();
+        place = grid.RandomFreeTransform();
         Instantiate(magicNode, place, Quaternion.identity);
-        gridComponent.SetOccupied(place, true); // Mark the position as occupied
+        grid.SetOccupied(place, true); // Mark the position as occupied
     }
 
     void TriggerDragon()
