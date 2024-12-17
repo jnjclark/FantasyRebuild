@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Dragon : MonoBehaviour
@@ -12,6 +13,7 @@ public class Dragon : MonoBehaviour
     public Vector2 currentPos;
     public Transform[] buildingPosArray;
     public Animator anim;                   //reference to animator of dragon
+    private SpriteRenderer spriteRenderer;
 
     void Update()
     {
@@ -24,7 +26,10 @@ public class Dragon : MonoBehaviour
     {
         currentPos = transform.position;
         buildingPosArray = Player.buildingPosArray;
-    }
+        anim.SetBool("Hover", true); // Start with the hover animation
+        spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
+    
+}
 
     //remove health from the dragon, next day if dragon dead
     public void Damage(int amount)
@@ -43,12 +48,44 @@ public class Dragon : MonoBehaviour
     {
         //TODO: in player class need to initialize buildingPosArray/List
         Transform target = getClosestBuilding(buildingPosArray);    //gets closest building, set as target
-        while (! currentPos.Equals(target.transform.position))
-            moveToward(target);                     //calls moveToward function until position is equal to target
+        while (!currentPos.Equals(target.transform.position)) { 
+        moveToward(target); }                 //calls moveToward function until position is equal to target
 
         //TODO: need to get building gameobject at target position and remove health from the building object
-        
-        cooldown = cooldownTime;                    //reset cooldown timer
+
+        // Hover -> land animation
+        anim.SetBool("Hover", false);
+        anim.SetBool("Land", true);
+
+        StartCoroutine(WaitForAnimation("Land", () =>
+        {
+            // Set the attacking animation
+            anim.SetBool("Land", false);
+            anim.SetBool("Attack", true);
+
+            // TODO: need to get building gameobject at target position and remove health from the building object
+
+            // Reset cooldown timer
+            cooldown = cooldownTime;
+
+            // After the attack -> transition to launch
+            StartCoroutine(WaitForAnimation("Attack", () =>
+            {
+                anim.SetBool("Attack", false);
+                anim.SetBool("Launch", true);
+
+                // launch animation -> back to hover
+                StartCoroutine(WaitForAnimation("Launch", () =>
+                {
+                    anim.SetBool("Launch", false);
+                    anim.SetBool("Hover", true);
+                }));
+            }));
+        }));
+
+
+
+
     }
 
     //calculates the closest building
@@ -74,8 +111,29 @@ public class Dragon : MonoBehaviour
     public void moveToward(Transform target)
     {
         float step = speed * Time.deltaTime;
+        Vector2 targetPosition = target.transform.position;
         transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
+
+
+        //Changes direction of dragon based on x-axis movement
+        if (targetPosition.x < transform.position.x)
+        {
+            spriteRenderer.flipX = true; // Face left
+        }
+        else if (targetPosition.x > transform.position.x)
+        {
+            spriteRenderer.flipX = false; // Face right
+        }
+
+        anim.SetBool("Hover", true); // Set hover animation while moving
+    
+}
+    // routine to wait for an animation to finish
+    IEnumerator WaitForAnimation(string animationName, System.Action onComplete)
+    {
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName(animationName) && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f);
+        onComplete?.Invoke();
     }
 
-    
+
 }

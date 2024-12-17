@@ -6,13 +6,6 @@ public class Tavern : Building
 {
     public int happiness;
 
-    Player player;
-
-    private void Awake()
-    {
-        player = Player.instance;
-    }
-
     public override void OnPlaced()
     {
         base.OnPlaced();

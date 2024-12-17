@@ -24,9 +24,12 @@ public class DayCycle : MonoBehaviour
     void Start()
     {
         /* TODO
-         * Set dayLength
+         
          * Set gamelength (days) last dragon battle day + 1
         */
+
+        dayLength = 120f;
+        gameLength = 11;
     }
     
     // Update is called once per frame
@@ -64,23 +67,27 @@ public class DayCycle : MonoBehaviour
         if (currentDay % dragonCount == 0)
             TriggerDragon();
         else if (currentDay == gameLength)
-            GameEnd();//EndGame()?
+            EndGame();//EndGame()?
     }
 
     public void AddResources()
     {
+        Grid gridComponent = Grid.GetComponent<Grid>();
+
         //wood
-        Vector2 place = Grid.RandomFreeTransform();
+        Vector2 place = gridComponent.RandomFreeTransform();
         Instantiate(woodNode, place, Quaternion.identity);
-        Grid.SetOccupied(place);
+        gridComponent.SetOccupied(place, true); // Mark the position as occupied
+
         //stone
-        place = Grid.RandomFreeTransform();
+        place = gridComponent.RandomFreeTransform();
         Instantiate(stoneNode, place, Quaternion.identity);
-        Grid.SetOccupied(place);
+        gridComponent.SetOccupied(place, true); // Mark the position as occupied
+
         //magic
-        place = Grid.RandomFreeTransform();
+        place = gridComponent.RandomFreeTransform();
         Instantiate(magicNode, place, Quaternion.identity);
-        Grid.SetOccupied(place, true);
+        gridComponent.SetOccupied(place, true); // Mark the position as occupied
     }
 
     void TriggerDragon()

@@ -10,7 +10,7 @@ public class Building : MonoBehaviour
     public int magicCost;
     public int score;
 
-    Player player;
+    protected Player player;
 
     private void Start()
     {
@@ -37,9 +37,10 @@ public class Building : MonoBehaviour
 
     public virtual void DestroySelf()
     {
-        //remove building from game
-
         //remove building from player's list
         player.RemoveBuildingList(this);
+
+        //Destroy object
+        Destroy(gameObject);
     }
 }

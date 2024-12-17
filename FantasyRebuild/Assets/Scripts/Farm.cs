@@ -7,13 +7,6 @@ public class Farm : Building
     public int happiness;
     public float productionIncrease;
 
-    Player player;
-
-    private void Awake()
-    {
-        player = Player.instance;
-    }
-
     public override void OnPlaced()
     {
         base.OnPlaced();

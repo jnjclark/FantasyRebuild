@@ -88,14 +88,16 @@ public class Grid : MonoBehaviour
 
     public Vector2 TransformToGrid(Vector2 transform)
     {
-        //TODO
-        return new Vector2(0, 0);
+        int x = Mathf.FloorToInt((transform.x - origin.position.x) / cellSize);
+        int y = Mathf.FloorToInt((transform.y - origin.position.y) / cellSize);
+        return new Vector2(x, y);
     }
 
     public Vector2 GridToTransform(Vector2 grid)
     {
-        //TODO
-        return new Vector2(0, 0);
+        float x = grid.x * cellSize + origin.position.x;
+        float y = grid.y * cellSize + origin.position.y;
+        return new Vector2(x, y);
     }
 
     //shows the grid in the editor while playing
