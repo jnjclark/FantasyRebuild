@@ -10,14 +10,26 @@ public class Player : MonoBehaviour
     [SerializeField] private float sadRange;    //at this percentage or lower, town is considered "sad"
     public int population;
     public int buildingScore;
-    //public List<Building> buildingList;
+    public float minDistanceBetweenBuildings = 5.0f; // Minimum distance between buildings
+    public List<Building> buildingList = new List<Building>(); // Initialize the list
     //TODO need to make an array/list of type Transform that holds all positions of buildings placed
+
     public float totalProductionBoost;
     public int nodeChargesPerCollect;       //how many charges are removed from a resource node when it's clicked
 
     //single instances of other classes
     public static DayCycle daycycle;
     public static Inventory inventory;
+    public static Transform[] buildingPosArray;
+
+    // References to building prefabs
+    public GameObject housePrefab;
+    public GameObject farmPrefab;
+    public GameObject turretPrefab;
+    public GameObject tavernPrefab;
+    public GameObject magicBuildingPrefab;
+    public GameObject woodBuildingPrefab;
+    public GameObject stoneBuildingPrefab;
 
     #region Singleton
     public static Player instance;
@@ -40,6 +52,14 @@ public class Player : MonoBehaviour
         //set references to other classes
         inventory = Inventory.instance;
         daycycle = DayCycle.instance;
+
+        List<Transform> buildingPositions = new List<Transform>();
+        foreach (Building building in FindObjectsOfType<Building>())
+        {
+            buildingPositions.Add(building.transform);
+            buildingList.Add(building); // Add existing buildings to the list
+        }
+        buildingPosArray = buildingPositions.ToArray();
     }
 
     //triggers node to collect their resources
@@ -54,11 +74,50 @@ public class Player : MonoBehaviour
         building.Collect();
     }
 
-    public void PlaceBuilding()
+    public void PlaceBuilding(Building building, Vector2 position)
     {
-        //Puts a selected building in the town while making sure it doesn’t overlap other buildings,
-        //then calls Purchase() with that building’s resource costs and AddBuildingScore() with that building’s score,
-        //and adds the building to buildingList with AddBuildingList()
+        if (CanPlaceBuilding(position))
+        {
+            // Check if the player has enough resources
+            if (inventory.wood >= building.woodCost && inventory.stone >= building.stoneCost && inventory.magic >= building.magicCost)
+            {
+                // Deduct resources
+                Purchase(building.woodCost, building.stoneCost, building.magicCost);
+
+                // Instantiate the building at the specified position
+                Instantiate(building, position, Quaternion.identity);
+
+                // Add the building to the list
+                AddBuildingList(building);
+
+                // Add the building's position to the array
+                List<Transform> buildingPositions = new List<Transform>(buildingPosArray);
+                buildingPositions.Add(building.transform);
+                buildingPosArray = buildingPositions.ToArray();
+
+                // Add the building's score
+                AddBuildingScore(building.score);
+            }
+            else
+            {
+                Debug.Log("Not enough resources to place the building.");
+            }
+        }
+        else
+        {
+            Debug.Log("Cannot place building too close to another building.");
+        }
+    }
+    public bool CanPlaceBuilding(Vector2 position)
+    {
+        foreach (Transform buildingPos in buildingPosArray)
+        {
+            if (Vector2.Distance(position, buildingPos.position) < minDistanceBetweenBuildings)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     //removes given resources from inventory
@@ -130,4 +189,6 @@ public class Player : MonoBehaviour
     {
         //TODO
     }
+
+
 }
