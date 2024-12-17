@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public int buildingScore;
     public float minDistanceBetweenBuildings = 5.0f; // Minimum distance between buildings
     public List<Building> buildingList = new List<Building>(); // Initialize the list
+    public List<House> houseList = new List<House>();        //List of all houses for population functions
     //TODO need to make an array/list of type Transform that holds all positions of buildings placed
 
     public float totalProductionBoost;
@@ -90,6 +91,10 @@ public class Player : MonoBehaviour
                 // Add the building to the list
                 AddBuildingList(building);
 
+                // Add it to the House list if it's a house
+                if (building is House)
+                    AddHouseList(building.GetComponent<House>());
+
                 // Add the building's position to the array
                 List<Transform> buildingPositions = new List<Transform>(buildingPosArray);
                 buildingPositions.Add(building.transform);
@@ -132,27 +137,40 @@ public class Player : MonoBehaviour
     public void AdjustPopulation()
     {
         float percent = HappinessPercent();
-        
+        int newPop = population;  //holds value that will be the population
+
         //sad
         if (percent < sadRange)
         {
-            //look through each house and remove a person until happiness is within "normal" range
+            //figure out how many to remove until happiness is within "normal" range
+            while (HappinessPercent(newPop) < sadRange)
+            {
+                newPop -= 1;
+            }
         }
         
         //happy
         else if (percent >= happyRange)
         {
-            //look through each house and add a person until happiness is within "normal" range
+            //figure out how many to add until happiness is within "normal" range
+            while (HappinessPercent(newPop) > happyRange)
+            {
+                newPop += 1;
+            }
         }
-       
-        //normal
+
+        //normal - do nothing
         else
         {
             //continue on
         }
 
-        RedistributePopulation();   //now that there's enough people, make sure they're evenly distributed 
-        //set population = number of people in all the houses
+        if (newPop <= 0)
+        {
+            Debug.Log("Lost all population");
+        }
+
+        RedistributePopulation(newPop);   //now that there's enough people, make sure they're evenly distributed 
     }
 
     public float HappinessPercent()
@@ -160,10 +178,51 @@ public class Player : MonoBehaviour
         return happiness / population;
     }
 
-    //Evenly distribute population over every house in buildingList
-    public void RedistributePopulation()
+    //used to calculate theoretical percent with a new population value
+    public float HappinessPercent(int newPopulation)
     {
-        //TODO
+        return happiness / newPopulation;
+    }
+
+    //Evenly distribute population over every house in buildingList
+    //if there's more population than is possible to house, ignore them
+    public void RedistributePopulation(int newPopulation)
+    {
+        int totalCapacity = 0;
+
+        //how many people can be housed
+        foreach (House house in houseList)
+        {
+            totalCapacity += house.capacity;
+        }
+
+        //discard extra people
+        if (newPopulation > totalCapacity)
+            newPopulation = totalCapacity;
+
+        //set value of population
+        SetPopulation(newPopulation);
+
+        //distribute into houses
+        int i = population;
+
+        foreach (House house in houseList)
+        {
+            //there's enough to fill the house
+            int cap = house.capacity;
+            if (i >= cap)
+            {
+                house.SetOccupation(house.capacity);
+                i -= house.capacity;
+            }
+
+            //not enough to fill the house
+            else
+            {
+                house.SetOccupation(i);
+                i = 0;
+            }
+        }
     }
 
     #region Add & Remove from variables
@@ -174,14 +233,26 @@ public class Player : MonoBehaviour
     public void SubtractBuildingScore(int score) => buildingScore -= score;
     public void AddBuildingList(Building building)
     {
-
+        buildingList.Add(building);
     }
     public void RemoveBuildingList(Building building)
     {
-
+        buildingList.Remove(building);
+    }
+    public void AddHouseList(House house)
+    {
+        houseList.Add(house);
+    }
+    public void RemoveHouseList(House house)
+    {
+        houseList.Remove(house);
     }
     public void AddProductionBoost(float amount) => totalProductionBoost += amount;
     public void SubtractProductionBoost(float amount) => totalProductionBoost -= amount;
+    void SetPopulation(int newPopulation)
+    {
+        population = newPopulation;
+    }
 
     #endregion
 

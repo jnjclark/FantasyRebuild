@@ -33,4 +33,22 @@ public class House : Building
         return false;
     }
 
+    public void ClearPeople()
+    {
+        occupation = 0;
+    }
+    
+    public void SetOccupation(int i)
+    {
+        occupation = i;
+    }
+
+    public override void DestroySelf()
+    {
+        //remove from house list
+        player.RemoveHouseList(this);
+
+        base.DestroySelf();
+    }
+
 }
