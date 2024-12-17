@@ -11,10 +11,13 @@ public class Player : MonoBehaviour
     public int population;
     public int buildingScore;
     //public List<Building> buildingList;
+    //TODO need to make an array/list of type Transform that holds all positions of buildings placed
     public float totalProductionBoost;
     public int nodeChargesPerCollect;       //how many charges are removed from a resource node when it's clicked
 
-    Inventory inventory;
+    //single instances of other classes
+    public static DayCycle daycycle;
+    public static Inventory inventory;
 
     #region Singleton
     public static Player instance;
@@ -34,8 +37,9 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        //set inventory reference
+        //set references to other classes
         inventory = Inventory.instance;
+        daycycle = DayCycle.instance;
     }
 
     //triggers node to collect their resources
@@ -100,7 +104,7 @@ public class Player : MonoBehaviour
     //Evenly distribute population over every house in buildingList
     public void RedistributePopulation()
     {
-
+        //TODO
     }
 
     #region Add & Remove from variables
@@ -121,4 +125,9 @@ public class Player : MonoBehaviour
     public void SubtractProductionBoost(float amount) => totalProductionBoost -= amount;
 
     #endregion
+
+    public void CalculateScore()
+    {
+        //TODO
+    }
 }
