@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DayCycle : MonoBehaviour
+public class DayCycle : MonoBehaviour, iDataPersistence
 {
     public int currentDay;
     public float dayLength;
@@ -45,11 +45,6 @@ public class DayCycle : MonoBehaviour
         player = Player.instance;
         grid = Grid.instance;
 
-        /* TODO
-         
-         * Set gamelength (days) last dragon battle day + 1
-        */
-
         dayLength = 120f;
         gameLength = 11;
     }
@@ -79,7 +74,7 @@ public class DayCycle : MonoBehaviour
             TriggerDragon();
         //check if game end
         else if (currentDay == gameLength)
-            EndGame();//EndGame()?
+            EndGame();
     }
 
     public void AddResources()
@@ -108,6 +103,18 @@ public class DayCycle : MonoBehaviour
     void EndGame()
     {
         player.CalculateScore();    //TODO - this now returns an int
+                                    //TODO - textboxes to display player score on final screen
+                                    //       Days survived?
+    }
+
+    public void SaveData(ref customGameData data)
+    {
+        data.currentTime = this.currentTime;
+    }
+
+    public void LoadData(customGameData data)
+    {
+        this.currentTime = data.currentTime;
     }
 
 }
