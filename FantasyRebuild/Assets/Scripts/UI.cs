@@ -42,6 +42,9 @@ public class UI : MonoBehaviour
         inventory = Inventory.instance;
         dayCycle = DayCycle.instance;
         player = Player.instance;
+
+        //initialize
+        InitiateUI();
     }
 
     public void SetWoodText()
@@ -74,10 +77,22 @@ public class UI : MonoBehaviour
         moodTxt.text = player.GetMood();
     }
 
-    public void SelectBuilding(GameObject buildingPrefab)
+    public void SelectBuilding(string str)
     {
         player.EnableBuildMode(true);
 
-        player.SetSelectedBuilding(buildingPrefab);
+        player.SetSelectedBuilding(str);
+
+        Debug.Log("button");
+    }
+
+    public void InitiateUI()
+    {
+        SetWoodText();
+        SetStoneText();
+        SetMagicText();
+        SetDaysText();
+        SetPopText();
+        SetMoodText();
     }
 }

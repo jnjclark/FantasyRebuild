@@ -34,13 +34,14 @@ public class Player : MonoBehaviour, iDataPersistence
     public static Transform[] buildingPosArray;
 
     // References to building prefabs
-    //public GameObject housePrefab;
-    //public GameObject farmPrefab;
-    //public GameObject turretPrefab;
-    //public GameObject tavernPrefab;
-    //public GameObject magicBuildingPrefab;
-    //public GameObject woodBuildingPrefab;
-    //public GameObject stoneBuildingPrefab;
+    public GameObject housePrefab;
+    public GameObject farmPrefab;
+    public GameObject wallPrefab;
+    public GameObject turretPrefab;
+    public GameObject tavernPrefab;
+    public GameObject magicBuildingPrefab;
+    public GameObject woodBuildingPrefab;
+    public GameObject stoneBuildingPrefab;
 
     #region Singleton
     public static Player instance;
@@ -316,9 +317,39 @@ public class Player : MonoBehaviour, iDataPersistence
         buildModeEnabled = boolean;
     }
 
-    public void SetSelectedBuilding(GameObject prefab)
+    public void SetSelectedBuilding(string str)
     {
-        selectedBuildingPrefab = prefab;
+        switch (str)
+        {
+            case ("h"):
+                selectedBuildingPrefab = housePrefab;
+                break;
+            case ("ta"):
+                selectedBuildingPrefab = tavernPrefab;
+                break;
+            case ("f"):
+                selectedBuildingPrefab = farmPrefab;
+                break;
+            case ("w"):
+                selectedBuildingPrefab = wallPrefab;
+                break;
+            case ("tu"):
+                selectedBuildingPrefab = turretPrefab;
+                break;
+            case ("wb"):
+                selectedBuildingPrefab = woodBuildingPrefab;
+                break;
+            case ("sb"):
+                selectedBuildingPrefab = stoneBuildingPrefab;
+                break;
+            case ("mb"):
+                selectedBuildingPrefab = magicBuildingPrefab;
+                break;
+            default:
+                Debug.Log("no building selected");
+                break;
+
+        }
     }
 
     //interface method
