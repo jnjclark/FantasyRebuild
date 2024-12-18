@@ -319,6 +319,7 @@ public class Player : MonoBehaviour, iDataPersistence
     public void SetSelectedBuilding(GameObject prefab)
     {
         selectedBuildingPrefab = prefab;
+    }
 
     //interface method
     public void LoadData(customGameData data)
