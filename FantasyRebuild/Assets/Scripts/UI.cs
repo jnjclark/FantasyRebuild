@@ -33,6 +33,8 @@ public class UI : MonoBehaviour
             instance = this;
 
         DontDestroyOnLoad(gameObject);
+
+        InitiateUI();
     }
     #endregion
 
@@ -42,9 +44,6 @@ public class UI : MonoBehaviour
         inventory = Inventory.instance;
         dayCycle = DayCycle.instance;
         player = Player.instance;
-
-        //initialize
-        InitiateUI();
     }
 
     public void SetWoodText()

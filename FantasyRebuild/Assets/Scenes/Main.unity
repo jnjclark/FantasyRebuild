@@ -2142,6 +2142,105 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
+--- !u!1 &1146257324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146257325}
+  - component: {fileID: 1146257328}
+  - component: {fileID: 1146257327}
+  - component: {fileID: 1146257326}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1146257325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146257324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 428.15073, y: 228.52461, z: 1.2180655}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146257326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146257324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3c06aa3bd1b1f4cb8eafc090262de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  happyRange: 0.8
+  sadRange: 0.4
+  population: 10
+  buildingScore: 0
+  minDistanceBetweenBuildings: 5
+  buildingList: []
+  houseList: []
+  totalProductionBoost: 0
+  nodeChargesPerCollect: 0
+  pointsPerPopulation: 1
+  pointsPerDay: 1
+  buildingPositions: []
+  housePrefab: {fileID: 2411017222986998705, guid: e6c007e2db529ff4aab11bf027220241, type: 3}
+  farmPrefab: {fileID: 8473004137121964345, guid: d8f5a56c0b692cb498bd43205062d6a4, type: 3}
+  wallPrefab: {fileID: 3639969408282991648, guid: 70ef26d4bfa49e94d92fb0d26f2d3c8a, type: 3}
+  turretPrefab: {fileID: 6726521541824545516, guid: 1afc5564ec47a2042b54fb9853db8ac7, type: 3}
+  tavernPrefab: {fileID: 285173475845540369, guid: 234d175f252e99d45b9a0dc7c0c89137, type: 3}
+  magicBuildingPrefab: {fileID: 1552123945315938009, guid: 170061dd1ce206a438a3d812ca466a20, type: 3}
+  woodBuildingPrefab: {fileID: 40342954993553628, guid: 6ccd524603948a1469f30520f650828f, type: 3}
+  stoneBuildingPrefab: {fileID: 3146822135851058753, guid: 3ca1f9ddac209bb4296b94b34090a4d8, type: 3}
+--- !u!114 &1146257327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146257324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cf5a6f67c94a254aa0f85b6c9d5dfca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentDay: 0
+  dayLength: 60
+  dragonCount: 2
+  gameLength: 10
+  dragon: {fileID: 0}
+  dragonStart: {x: 0, y: 0}
+  woodNode: {fileID: 0}
+  stoneNode: {fileID: 0}
+  magicNode: {fileID: 0}
+--- !u!114 &1146257328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146257324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80c58b7288df044ca422a9300a0b0e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1252928804 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1539263442544539355, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
@@ -3378,3 +3477,4 @@ SceneRoots:
   - {fileID: 1590246}
   - {fileID: 206866230}
   - {fileID: 2010900247}
+  - {fileID: 1146257325}
