@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResourceBuilding : Building
 {
-    public int refreshRate;     //how often add to stock
+    public float refreshRate;     //how often add to stock
     public int capacity;        //maximum capacity of the building
     public int stock;           //current amount of resources in the building
 

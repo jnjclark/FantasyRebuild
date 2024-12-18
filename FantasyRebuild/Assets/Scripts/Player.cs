@@ -18,6 +18,9 @@ public class Player : MonoBehaviour
     public float totalProductionBoost;
     public int nodeChargesPerCollect;       //how many charges are removed from a resource node when it's clicked
 
+    private GameObject selectedBuildingPrefab;
+    private bool buildModeEnabled = false;
+
     [Header("Score Weights")]               //how many points received for each of these
     public int pointsPerPopulation = 1;
     public int pointsPerDay = 1;
@@ -25,16 +28,17 @@ public class Player : MonoBehaviour
     //single instances of other classes
     DayCycle daycycle;
     Inventory inventory;
+    UI ui;
     public static Transform[] buildingPosArray;
 
     // References to building prefabs
-    public GameObject housePrefab;
-    public GameObject farmPrefab;
-    public GameObject turretPrefab;
-    public GameObject tavernPrefab;
-    public GameObject magicBuildingPrefab;
-    public GameObject woodBuildingPrefab;
-    public GameObject stoneBuildingPrefab;
+    //public GameObject housePrefab;
+    //public GameObject farmPrefab;
+    //public GameObject turretPrefab;
+    //public GameObject tavernPrefab;
+    //public GameObject magicBuildingPrefab;
+    //public GameObject woodBuildingPrefab;
+    //public GameObject stoneBuildingPrefab;
 
     #region Singleton
     public static Player instance;
@@ -57,6 +61,7 @@ public class Player : MonoBehaviour
         //set references to other classes
         inventory = Inventory.instance;
         daycycle = DayCycle.instance;
+        ui = UI.instance;
 
         List<Transform> buildingPositions = new List<Transform>();
         foreach (Building building in FindObjectsOfType<Building>())
@@ -65,6 +70,11 @@ public class Player : MonoBehaviour
             buildingList.Add(building); // Add existing buildings to the list
         }
         buildingPosArray = buildingPositions.ToArray();
+    }
+
+    private void Update()
+    {
+
     }
 
     //triggers node to collect their resources
@@ -116,6 +126,10 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Cannot place building too close to another building.");
         }
+
+        EnableBuildMode(false); //don't place any more buildings
+
+        ui.SetMoodText();   //update UI
     }
     public bool CanPlaceBuilding(Vector2 position)
     {
@@ -175,6 +189,8 @@ public class Player : MonoBehaviour
         }
 
         RedistributePopulation(newPop);   //now that there's enough people, make sure they're evenly distributed 
+
+        ui.SetPopText();    //update UI
     }
 
     public float HappinessPercent()
@@ -186,6 +202,22 @@ public class Player : MonoBehaviour
     public float HappinessPercent(int newPopulation)
     {
         return happiness / newPopulation;
+    }
+
+    public string GetMood()
+    {
+        string mood = "";
+
+        float h = HappinessPercent();
+
+        if (h < sadRange)
+            mood = "Sad";
+        else if (h >= happyRange)
+            mood = "Happy";
+        else
+            mood = "Normal";
+
+        return mood;
     }
 
     //Evenly distribute population over every house in buildingList
@@ -276,5 +308,13 @@ public class Player : MonoBehaviour
         return score;
     }
 
+    public void EnableBuildMode(bool boolean)
+    {
+        buildModeEnabled = boolean;
+    }
 
+    public void SetSelectedBuilding(GameObject prefab)
+    {
+        selectedBuildingPrefab = prefab;
+    }
 }

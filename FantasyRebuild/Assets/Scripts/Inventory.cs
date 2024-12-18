@@ -8,6 +8,9 @@ public class Inventory : MonoBehaviour
     public int stone { get; private set; }
     public int magic { get; private set; }
 
+    //references
+    UI ui;
+
     #region Singleton
     public static Inventory instance;
 
@@ -24,15 +27,52 @@ public class Inventory : MonoBehaviour
     }
     #endregion
 
-    public void AddWood(int amount) => wood += amount;
+    private void Start()
+    {
+        //set references
+        ui = UI.instance;
+    }
 
-    public void RemoveWood(int amount) => wood -= amount;
+    public void AddWood(int amount)
+    {
+        wood += amount;
 
-    public void AddStone(int amount) => stone += amount;
+        ui.SetWoodText();
+    }
 
-    public void RemoveStone(int amount) => stone -= amount;
+    public void RemoveWood(int amount)
+    {
+        wood -= amount;
 
-    public void AddMagic(int amount) => magic += amount;
+        ui.SetWoodText();
+    }
 
-    public void RemoveMagic(int amount) => magic -= amount;
+    public void AddStone(int amount)
+    {
+        stone += amount;
+
+        ui.SetStoneText();
+    }
+
+    public void RemoveStone(int amount)
+    {
+        stone -= amount;
+
+        ui.SetStoneText();
+    }
+
+    public void AddMagic(int amount)
+    {
+        magic += amount;
+
+        ui.SetMagicText();
+    }
+
+    public void RemoveMagic(int amount)
+    {
+        magic -= amount;
+
+        ui.SetMagicText();
+    }
+
 }

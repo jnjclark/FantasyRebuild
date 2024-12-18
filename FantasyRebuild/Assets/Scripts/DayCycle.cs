@@ -21,6 +21,7 @@ public class DayCycle : MonoBehaviour
     //references to major components
     Player player;
     Grid grid;
+    UI ui;
 
     #region Singleton
     public static DayCycle instance;
@@ -44,6 +45,7 @@ public class DayCycle : MonoBehaviour
         //set references
         player = Player.instance;
         grid = Grid.instance;
+        ui = UI.instance;
 
         /* TODO
          
@@ -74,6 +76,9 @@ public class DayCycle : MonoBehaviour
         //adjust population
         player.AdjustPopulation();
         AddResources();
+
+        //set UI
+        ui.SetDaysText();
 
         //check if spawn dragon
         if (currentDay % dragonCount == 0)
