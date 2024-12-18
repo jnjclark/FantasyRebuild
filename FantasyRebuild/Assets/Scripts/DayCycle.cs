@@ -73,6 +73,7 @@ public class DayCycle : MonoBehaviour
 
         //adjust population
         player.AdjustPopulation();
+        AddResources();
 
         //check if spawn dragon
         if (currentDay % dragonCount == 0)

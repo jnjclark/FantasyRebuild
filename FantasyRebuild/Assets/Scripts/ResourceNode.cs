@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResourceNode : MonoBehaviour
 {
-    int charges;    //how many times the resource can be collected
+    public int charges;    //how many times the resource can be collected
 
     public virtual void RemoveResource(int amount)
     {
