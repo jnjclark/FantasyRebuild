@@ -18,9 +18,13 @@ public class Player : MonoBehaviour
     public float totalProductionBoost;
     public int nodeChargesPerCollect;       //how many charges are removed from a resource node when it's clicked
 
+    [Header("Score Weights")]               //how many points received for each of these
+    public int pointsPerPopulation = 1;
+    public int pointsPerDay = 1;
+
     //single instances of other classes
-    public static DayCycle daycycle;
-    public static Inventory inventory;
+    DayCycle daycycle;
+    Inventory inventory;
     public static Transform[] buildingPosArray;
 
     // References to building prefabs
@@ -256,9 +260,20 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    public void CalculateScore()
+    public int CalculateScore()
     {
-        //TODO
+        int score = 0;
+
+        //how many days player survived
+        score += (daycycle.currentDay * pointsPerDay);
+
+        //population
+        score += (population * pointsPerPopulation);
+
+        //buildingScore
+        score += buildingScore;
+
+        return score;
     }
 
 

@@ -107,7 +107,7 @@ public class DayCycle : MonoBehaviour
 
     void EndGame()
     {
-        player.CalculateScore();
+        player.CalculateScore();    //TODO - this now returns an int
     }
 
 }
