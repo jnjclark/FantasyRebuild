@@ -22,7 +22,7 @@ public class DayCycle : MonoBehaviour, iDataPersistence
     Player player;
     Grid grid;
     UI ui;
-
+    GM gm;
     #region Singleton
     public static DayCycle instance;
 
@@ -46,6 +46,7 @@ public class DayCycle : MonoBehaviour, iDataPersistence
         player = Player.instance;
         grid = Grid.instance;
         ui = UI.instance;
+        gm = GM.instance;
 
         dayLength = 120f;
         gameLength = 11;
@@ -108,19 +109,20 @@ public class DayCycle : MonoBehaviour, iDataPersistence
 
     void EndGame()
     {
-        player.CalculateScore();    //TODO - this now returns an int
-                                    //TODO - textboxes to display player score on final screen
-                                    //       Days survived?
+        int score = player.CalculateScore();
+        gm.displayStats(score, currentDay);                           
     }
 
     public void SaveData(ref customGameData data)
     {
         data.currentTime = this.currentTime;
+        data.currentDay = this.currentDay;
     }
 
     public void LoadData(customGameData data)
     {
         this.currentTime = data.currentTime;
+        this.currentDay = data.currentDay;
     }
 
 }

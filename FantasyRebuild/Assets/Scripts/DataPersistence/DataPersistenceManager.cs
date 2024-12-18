@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class DataPersistenceManager : MonoBehaviour
 {
@@ -26,12 +27,13 @@ public class DataPersistenceManager : MonoBehaviour
     {
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        LoadGame();
+        
     }
 
     public void NewGame()
     {
         this.gameData = new customGameData(); // set as a new gameData object
+        SceneManager.LoadScene("Main");
     }
 
     public void LoadGame()
