@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Game Manager script
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, iDataPersistence
 {
     public int happiness { get; private set; }
     [SerializeField] private float happyRange;  //at this percentage or higher, town is considered "happy"
@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public float minDistanceBetweenBuildings = 5.0f; // Minimum distance between buildings
     public List<Building> buildingList = new List<Building>(); // Initialize the list
     public List<House> houseList = new List<House>();        //List of all houses for population functions
-    //TODO need to make an array/list of type Transform that holds all positions of buildings placed
+    
 
     public float totalProductionBoost;
     public int nodeChargesPerCollect;       //how many charges are removed from a resource node when it's clicked
@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     DayCycle daycycle;
     Inventory inventory;
     UI ui;
+
+    public List<Transform> buildingPositions;
     public static Transform[] buildingPosArray;
 
     // References to building prefabs
@@ -63,7 +65,7 @@ public class Player : MonoBehaviour
         daycycle = DayCycle.instance;
         ui = UI.instance;
 
-        List<Transform> buildingPositions = new List<Transform>();
+        buildingPositions = new List<Transform>();
         foreach (Building building in FindObjectsOfType<Building>())
         {
             buildingPositions.Add(building.transform);
@@ -308,6 +310,7 @@ public class Player : MonoBehaviour
         return score;
     }
 
+
     public void EnableBuildMode(bool boolean)
     {
         buildModeEnabled = boolean;
@@ -316,5 +319,22 @@ public class Player : MonoBehaviour
     public void SetSelectedBuilding(GameObject prefab)
     {
         selectedBuildingPrefab = prefab;
+
+    //interface method
+    public void LoadData(customGameData data)
+    {
+        this.population = data.population;
+        this.buildingList = data.buildingList;
+        this.houseList = data.houseList;
+        this.buildingPositions = data.buildingPositions;
+    }
+
+    //interface method
+    public void SaveData(ref customGameData data)
+    {
+        data.population = this.population;
+        data.buildingList = this.buildingList;
+        data.houseList = this.houseList;
+        data.buildingPositions = this.buildingPositions;
     }
 }

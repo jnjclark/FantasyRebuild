@@ -56,8 +56,6 @@ public class Dragon : MonoBehaviour
         while (!currentPos.Equals(target.transform.position)) { 
         moveToward(target); }                 //calls moveToward function until position is equal to target
 
-        //TODO: need to get building gameobject at target position and remove health from the building object
-
         // Hover -> land animation
         anim.SetBool("Hover", false);
         anim.SetBool("Land", true);
@@ -68,8 +66,13 @@ public class Dragon : MonoBehaviour
             anim.SetBool("Land", false);
             anim.SetBool("Attack", true);
 
-            // TODO: need to get building gameobject at target position and remove health from the building object
-
+            //damage building
+            Building targetBuilding = target.transform.gameObject.GetComponent<Building>();
+            if (targetBuilding != null)
+            {
+                //remove health
+                targetBuilding.Damage(damage);
+            }
             // Reset cooldown timer
             cooldown = cooldownTime;
 
