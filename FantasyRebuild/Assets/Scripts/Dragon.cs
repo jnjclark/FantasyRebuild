@@ -15,6 +15,8 @@ public class Dragon : MonoBehaviour
     public Animator anim;                   //reference to animator of dragon
     private SpriteRenderer spriteRenderer;
 
+    DayCycle daycycle;
+
     void Update()
     {
         cooldown -= Time.deltaTime;
@@ -24,6 +26,9 @@ public class Dragon : MonoBehaviour
 
     void Start()
     {
+        //set reference
+        daycycle = DayCycle.instance;
+
         currentPos = transform.position;
         buildingPosArray = Player.buildingPosArray;
         anim.SetBool("Hover", true); // Start with the hover animation
@@ -39,7 +44,7 @@ public class Dragon : MonoBehaviour
         if (health <= 0)
         {
             Destroy(this);                          //delete dragon
-            Player.daycycle.IncreaseDay();
+            daycycle.IncreaseDay();
         }
     }
 
