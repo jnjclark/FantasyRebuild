@@ -185,7 +185,9 @@ public class Player : MonoBehaviour, iDataPersistence
     //Determines how many population should be added or removed based on Player’s happiness and the housing space available in buildings
     public void AdjustPopulation()
     {
-        float percent = HappinessPercent();
+        Debug.Log("Current pop: " + population);
+        float percent = HappinessPercent(population);
+        Debug.Log("Percent: " + percent);
         int newPop = population;  //holds value that will be the population
 
         //sad
@@ -226,12 +228,14 @@ public class Player : MonoBehaviour, iDataPersistence
 
     public float HappinessPercent()
     {
+        Debug.Log("no parameter: " + happiness + "/ " + population);
         return happiness / population;
     }
 
     //used to calculate theoretical percent with a new population value
     public float HappinessPercent(int newPopulation)
     {
+        Debug.Log("one parameter: " + happiness + "/ " + newPopulation);
         return happiness / newPopulation;
     }
 

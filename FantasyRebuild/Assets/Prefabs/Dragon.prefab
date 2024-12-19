@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7130275756728460617}
   - component: {fileID: 8158196099944529226}
   - component: {fileID: 9008345592964332306}
+  - component: {fileID: -5357411630025886063}
   m_Layer: 0
   m_Name: Dragon
   m_TagString: Untagged
@@ -106,3 +107,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5357411630025886063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3991037403366228926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d987a09fec1c68b449b11afc162b3ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  damage: 0
+  speed: 0
+  cooldownTime: 3
+  cooldown: 0
+  currentPos: {x: 0, y: 0}
+  buildingPosArray: []
+  anim: {fileID: 0}

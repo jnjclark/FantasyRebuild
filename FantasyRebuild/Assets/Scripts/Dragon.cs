@@ -15,12 +15,23 @@ public class Dragon : MonoBehaviour
     public Animator anim;                   //reference to animator of dragon
     private SpriteRenderer spriteRenderer;
 
+    public Transform target;
+
     DayCycle daycycle;
 
+    private void Awake()
+    {
+        health = 100;
+        damage = 10;
+        speed = 1;
+
+        anim = GetComponent<Animator>();
+    }
     void Update()
     {
         cooldown -= Time.deltaTime;
         if (cooldown <= 0f)
+            Debug.Log("Should be attacking");
             Attack();
     }
 
@@ -55,8 +66,9 @@ public class Dragon : MonoBehaviour
     //Attacks the closest building
     public void Attack()
     {
-        Transform target = getClosestBuilding(buildingPosArray);    //gets closest building, set as target
-        while (!currentPos.Equals(target.transform.position)) { 
+        target = getClosestBuilding(buildingPosArray);    //gets closest building, set as target
+        while (!currentPos.Equals(target.transform.position)) {
+            Debug.Log("move toward");
         moveToward(target); }                 //calls moveToward function until position is equal to target
 
         // Hover -> land animation

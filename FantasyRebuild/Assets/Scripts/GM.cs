@@ -12,7 +12,7 @@ public class GM : MonoBehaviour
     public DataPersistenceManager dataManager;
     public Text scoreBox;
     public Text dayBox;
-
+    public GameObject dragon;
     #region Singleton
     public static GM instance;
 
@@ -64,5 +64,10 @@ public class GM : MonoBehaviour
     {
         scoreBox.text = "Score: " + score;
         dayBox.text = "Days Survived: " + days;
+    }
+
+    public void spawnDragon()
+    {
+        DayCycle.instance.TriggerDragon();
     }
 }

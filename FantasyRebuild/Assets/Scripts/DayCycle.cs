@@ -11,7 +11,7 @@ public class DayCycle : MonoBehaviour, iDataPersistence
     public int dragonCount;
     public int gameLength;
     public GameObject dragon;
-    public Vector2 dragonStart;
+    public Vector2 dragonStart = new Vector2(0,0);
 
     //references to resource node prefabs
     public GameObject woodNode;
@@ -70,7 +70,7 @@ public class DayCycle : MonoBehaviour, iDataPersistence
     public void IncreaseDay()
     {
         currentDay++;
-
+        Debug.Log("Current Population: " + player.population);
         //adjust population
         player.AdjustPopulation();
         AddResources();
@@ -104,7 +104,7 @@ public class DayCycle : MonoBehaviour, iDataPersistence
         //grid.SetOccupied(place, true); // Mark the position as occupied
     }
 
-    void TriggerDragon()
+    public void TriggerDragon()
     {
         Instantiate(dragon, dragonStart, Quaternion.identity);
     }
