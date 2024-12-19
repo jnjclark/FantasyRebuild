@@ -31,8 +31,8 @@ public class Dragon : MonoBehaviour
     void Update()
     {
         cooldown -= Time.deltaTime;
-        if (cooldown <= 0f)
-            Attack();
+        //if (cooldown <= 0f)
+        Attack();
     }
 
     void Start()
@@ -69,7 +69,11 @@ public class Dragon : MonoBehaviour
     {
         target = getClosestBuilding();    //gets closest building, set as target
 
-        while (!currentPos.Equals(target.transform.position)) {
+        Debug.Log(Vector3.Distance(gameObject.transform.position, target.transform.position));
+        Debug.Log(target.position);
+
+        //while (!currentPos.Equals(target.transform.position)) {
+        while (Vector3.Distance(gameObject.transform.position, target.position) > 0.25) {
             Debug.Log("move toward");
         moveToward(target); }                 //calls moveToward function until position is equal to target
 
