@@ -127,12 +127,13 @@ public class Grid : MonoBehaviour
         else
             origin.x -= cellSize - (Mathf.Abs(origin.x) % cellSize);
 
-        origin.y = 0;
-
         if (origin.y >= 0)
             origin.y -= (origin.y % cellSize);
         else
             origin.y -= cellSize - (Mathf.Abs(origin.y) % cellSize);
+
+        origin -= new Vector2(1, 1);        //its doing something odd so just correct it
+
         return origin;
     }
 }

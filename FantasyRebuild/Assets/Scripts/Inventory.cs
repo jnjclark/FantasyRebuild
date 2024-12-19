@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public int wood { get; private set; }
-    public int stone { get; private set; }
-    public int magic { get; private set; }
+    public int wood;
+    public int stone;
+    public int magic;
 
     //references
     UI ui;

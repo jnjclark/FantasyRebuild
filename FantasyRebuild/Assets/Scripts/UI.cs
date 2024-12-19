@@ -16,7 +16,7 @@ public class UI : MonoBehaviour
     public Text moodTxt;
 
     //references
-    Inventory inventory;
+    public Inventory inventory;
     DayCycle dayCycle;
     Player player;
 
@@ -33,17 +33,16 @@ public class UI : MonoBehaviour
             instance = this;
 
         DontDestroyOnLoad(gameObject);
-
-        InitiateUI();
     }
     #endregion
 
     private void Start()
     {
         //set references
-        inventory = Inventory.instance;
         dayCycle = DayCycle.instance;
         player = Player.instance;
+
+        InitiateUI();
     }
 
     public void SetWoodText()
@@ -81,8 +80,6 @@ public class UI : MonoBehaviour
         player.EnableBuildMode(true);
 
         player.SetSelectedBuilding(str);
-
-        Debug.Log("button");
     }
 
     public void InitiateUI()

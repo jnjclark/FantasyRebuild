@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //Game Manager script
 public class Player : MonoBehaviour, iDataPersistence
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour, iDataPersistence
     DayCycle daycycle;
     Inventory inventory;
     UI ui;
+    Grid grid;
 
     public List<Transform> buildingPositions;
     public static Transform[] buildingPosArray;
@@ -65,6 +67,7 @@ public class Player : MonoBehaviour, iDataPersistence
         inventory = Inventory.instance;
         daycycle = DayCycle.instance;
         ui = UI.instance;
+        grid = Grid.instance;
 
         buildingPositions = new List<Transform>();
         foreach (Building building in FindObjectsOfType<Building>())
@@ -77,7 +80,23 @@ public class Player : MonoBehaviour, iDataPersistence
 
     private void Update()
     {
+        //don't click on things through UI
+        if (EventSystem.current.IsPointerOverGameObject()) return;
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            //place building
+            if (hit.collider.tag == "ground" && buildModeEnabled)
+            {
+                Vector2 position = grid.GetGridSnapLocation(hit.point);
+
+                PlaceBuilding(selectedBuildingPrefab, position);
+
+                EnableBuildMode(false);
+            }
+        }
     }
 
     //triggers node to collect their resources
@@ -92,10 +111,13 @@ public class Player : MonoBehaviour, iDataPersistence
         building.Collect();
     }
 
-    public void PlaceBuilding(Building building, Vector2 position)
+    //public void PlaceBuilding(Building building, Vector2 position)
+    public void PlaceBuilding(GameObject buildingPrefab, Vector2 position)
     {
         if (CanPlaceBuilding(position))
         {
+            Building building = buildingPrefab.GetComponent<Building>();
+
             // Check if the player has enough resources
             if (inventory.wood >= building.woodCost && inventory.stone >= building.stoneCost && inventory.magic >= building.magicCost)
             {
@@ -136,14 +158,18 @@ public class Player : MonoBehaviour, iDataPersistence
     }
     public bool CanPlaceBuilding(Vector2 position)
     {
-        foreach (Transform buildingPos in buildingPosArray)
-        {
-            if (Vector2.Distance(position, buildingPos.position) < minDistanceBetweenBuildings)
-            {
-                return false;
-            }
-        }
         return true;
+        
+        
+        
+        //foreach (Transform buildingPos in buildingPosArray)
+        //{
+        //    if (Vector2.Distance(position, buildingPos.position) < minDistanceBetweenBuildings)
+        //    {
+        //        return false;
+        //    }
+        //}
+        //return true;
     }
 
     //removes given resources from inventory
