@@ -31,7 +31,6 @@ public class Dragon : MonoBehaviour
     {
         cooldown -= Time.deltaTime;
         if (cooldown <= 0f)
-            Debug.Log("Should be attacking");
             Attack();
     }
 
