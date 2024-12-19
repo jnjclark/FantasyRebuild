@@ -11,10 +11,15 @@ public class StoneNode : ResourceNode
         inventory = Inventory.instance;
     }
 
-    public override void RemoveResource(int amount)
+    public override void RemoveCharge()
     {
-        inventory.AddStone(amount);
+        base.RemoveCharge();
+        AddResource();
+        if (base.charges <= 0) DestroySelf();
+    }
 
-        base.RemoveResource(amount);
+    public override void AddResource()
+    {
+        inventory.AddStone(15);
     }
 }

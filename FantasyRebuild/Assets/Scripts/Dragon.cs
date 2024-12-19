@@ -34,7 +34,11 @@ public class Dragon : MonoBehaviour
         anim.SetBool("Hover", true); // Start with the hover animation
         spriteRenderer = GetComponent<SpriteRenderer>(); // Get the SpriteRenderer component
     
-}
+        //get attackval, health, set speed
+        damage = getAttackVal();
+        health = getHealthVal();
+        speed = 1;
+    }
 
     //remove health from the dragon, next day if dragon dead
     public void Damage(int amount)
@@ -51,7 +55,6 @@ public class Dragon : MonoBehaviour
     //Attacks the closest building
     public void Attack()
     {
-        //TODO: in player class need to initialize buildingPosArray/List
         Transform target = getClosestBuilding(buildingPosArray);    //gets closest building, set as target
         while (!currentPos.Equals(target.transform.position)) { 
         moveToward(target); }                 //calls moveToward function until position is equal to target
@@ -143,5 +146,37 @@ public class Dragon : MonoBehaviour
         onComplete?.Invoke();
     }
 
+    //based on which dragon attack it is, assigns attack value
+    public int getAttackVal()
+    {
+        int val = 0;
+
+        if (daycycle.currentDay == 5)
+            val = 25;
+        else if (daycycle.currentDay == 10)
+            val = 35;
+        else if (daycycle.currentDay == 15)
+            val = 45;
+        else if (daycycle.currentDay == 20)
+            val = 55;
+
+        return val;
+    }
+
+    public int getHealthVal()
+    {
+        int val = 0;
+
+        if (daycycle.currentDay == 5)
+            val = 100;
+        else if (daycycle.currentDay == 10)
+            val = 125;
+        else if (daycycle.currentDay == 15)
+            val = 150;
+        else if (daycycle.currentDay == 20)
+            val = 175;
+
+        return val;
+    }
 
 }

@@ -82,7 +82,7 @@ public class Player : MonoBehaviour, iDataPersistence
     //triggers node to collect their resources
     public void CollectResourceNode(ResourceNode node)
     {
-        node.RemoveResource(nodeChargesPerCollect);
+        node.RemoveCharge();
     }
 
     //triggers building to collect their resources

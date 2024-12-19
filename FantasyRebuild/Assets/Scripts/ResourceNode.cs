@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class ResourceNode : MonoBehaviour
 {
-    public int charges;    //how many times the resource can be collected
+    public int charges = 2;   //how many times the resource can be collected
 
-    public virtual void RemoveResource(int amount)
+    public virtual void RemoveCharge()
     {
-        charges -= amount;
-
+        charges = charges - 1;
         if (charges <= 0) DestroySelf();
     }
 
@@ -17,5 +16,10 @@ public class ResourceNode : MonoBehaviour
     public void DestroySelf()
     {
         Destroy(gameObject);
+    }
+
+    public virtual void AddResource()
+    {
+        
     }
 }
