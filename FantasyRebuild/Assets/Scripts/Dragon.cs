@@ -18,6 +18,7 @@ public class Dragon : MonoBehaviour
     public Transform target;
 
     DayCycle daycycle;
+    Player player;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class Dragon : MonoBehaviour
     {
         //set reference
         daycycle = DayCycle.instance;
+        player = Player.instance;
 
         currentPos = transform.position;
         buildingPosArray = Player.buildingPosArray;
@@ -65,7 +67,8 @@ public class Dragon : MonoBehaviour
     //Attacks the closest building
     public void Attack()
     {
-        target = getClosestBuilding(buildingPosArray);    //gets closest building, set as target
+        target = getClosestBuilding();    //gets closest building, set as target
+
         while (!currentPos.Equals(target.transform.position)) {
             Debug.Log("move toward");
         moveToward(target); }                 //calls moveToward function until position is equal to target
@@ -111,19 +114,19 @@ public class Dragon : MonoBehaviour
     }
 
     //calculates the closest building
-    public Transform getClosestBuilding(Transform[] buildingList)
+    public Transform getClosestBuilding()
     {
         Transform closestTarget = null;             //initialize closest target
         float closestDistanceSqr = Mathf.Infinity;
 
-        foreach (Transform potentialTarget in buildingList)
+        foreach (Building potentialTarget in player.buildingList)
         {
             Vector2 targetDirection = (Vector2) potentialTarget.transform.position - currentPos;    //calculate direction between dragon and target
             float dSqrToTarget = targetDirection.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)
             {
                 closestDistanceSqr = dSqrToTarget;                              //set closestDistanceSqr to current building distance
-                closestTarget = potentialTarget;                                //set closestTarget to current building
+                closestTarget = potentialTarget.transform;                      //set closestTarget to current building
             }
         }
         return closestTarget;
