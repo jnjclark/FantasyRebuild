@@ -2299,6 +2299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80c58b7288df044ca422a9300a0b0e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wood: 50
+  stone: 50
+  magic: 50
 --- !u!224 &1252928804 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1539263442544539355, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}

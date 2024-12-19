@@ -83,12 +83,12 @@ public class Player : MonoBehaviour, iDataPersistence
         //don't click on things through UI
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && buildModeEnabled)
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             //place building
-            if (hit.collider.tag == "ground" && buildModeEnabled)
+            if (hit.collider.tag == "ground")
             {
                 Vector2 position = grid.GetGridSnapLocation(hit.point);
 
@@ -127,6 +127,9 @@ public class Player : MonoBehaviour, iDataPersistence
                 // Instantiate the building at the specified position
                 Instantiate(building, position, Quaternion.identity);
 
+                // set grid occupied
+                grid.SetOccupied(position, true);
+
                 // Add the building to the list
                 AddBuildingList(building);
 
@@ -146,30 +149,29 @@ public class Player : MonoBehaviour, iDataPersistence
             {
                 Debug.Log("Not enough resources to place the building.");
             }
+
+            EnableBuildMode(false); //don't place any more buildings
+
+            ui.SetMoodText();   //update UI
         }
         else
         {
             Debug.Log("Cannot place building too close to another building.");
-        }
-
-        EnableBuildMode(false); //don't place any more buildings
-
-        ui.SetMoodText();   //update UI
+        } 
     }
     public bool CanPlaceBuilding(Vector2 position)
     {
+        foreach (Building building in buildingList)
+        {
+            Vector2 buildingPos = new Vector2(building.transform.position.x, building.transform.position.y);
+
+            if (grid.GetOccupied(buildingPos))
+            {
+                return false;
+            }
+        }
+
         return true;
-        
-        
-        
-        //foreach (Transform buildingPos in buildingPosArray)
-        //{
-        //    if (Vector2.Distance(position, buildingPos.position) < minDistanceBetweenBuildings)
-        //    {
-        //        return false;
-        //    }
-        //}
-        //return true;
     }
 
     //removes given resources from inventory

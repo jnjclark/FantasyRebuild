@@ -28,6 +28,20 @@ public class Grid : MonoBehaviour
     }
     #endregion
 
+    private void Start()
+    {
+        //create array and fill with 'e'
+        buildingPlacement = new char[width, height];
+
+        for (int i = width - 1; i >= 0; i--)
+        {
+            for (int j = height - 1; j >= 0; j--)
+            {
+                buildingPlacement[i, j] = 'e';
+            }
+        }
+    }
+
     public void SetOccupied(Vector2 transform, bool occupied)
     {
         Vector2 place = TransformToGrid(transform);
@@ -38,6 +52,8 @@ public class Grid : MonoBehaviour
         if (GetOccupied(x, y) && !occupied)
         {
             buildingPlacement[x, y] = 'e';
+
+            Debug.Log(buildingPlacement[x, y]);
         }
 
         //if the cell is empty and we want to set it as occupied
@@ -54,10 +70,17 @@ public class Grid : MonoBehaviour
     {
         if (buildingPlacement[x, y] == 'o') return true;            //occupied
         else if (buildingPlacement[x, y] == 'e') return false;      //empty
-            
-        Debug.LogError("buildingPlacement " + x.ToString() + ", " + y.ToString() + " not marked empty or occupied");    //should not happen
+        else    
+            Debug.LogError("buildingPlacement " + x.ToString() + ", " + y.ToString() + " not marked empty or occupied");    //should not happen
         return false;
-    }       
+    }
+
+    public bool GetOccupied(Vector3 position)
+    {
+        Vector2 gridPos = TransformToGrid(position);
+
+        return GetOccupied((int)gridPos.x, (int)gridPos.y);
+    }
 
     //returns a random unoccupied cell
     public Vector2 RandomFreePlace()
@@ -88,8 +111,11 @@ public class Grid : MonoBehaviour
 
     public Vector2 TransformToGrid(Vector2 transform)
     {
-        int x = Mathf.FloorToInt((transform.x - origin.position.x) / cellSize);
-        int y = Mathf.FloorToInt((transform.y - origin.position.y) / cellSize);
+        int x = (int)((transform.x - origin.position.x) / cellSize);
+        int y = (int)((transform.y - origin.position.y) / cellSize);
+        
+        //int x = Mathf.FloorToInt((transform.x - origin.position.x) / cellSize);
+        //int y = Mathf.FloorToInt((transform.y - origin.position.y) / cellSize);
         return new Vector2(x, y);
     }
 

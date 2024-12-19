@@ -11,11 +11,13 @@ public class Building : MonoBehaviour
     public int score;
 
     protected Player player;
+    Grid grid;
 
-    private void Start()
+    private void Awake()
     {
         //set player
         player = Player.instance;
+        grid = Grid.instance;
     }
 
     //Called when the building is placed, overridden by children
@@ -39,6 +41,9 @@ public class Building : MonoBehaviour
     {
         //remove building from player's list
         player.RemoveBuildingList(this);
+
+        //set grid place empty
+        grid.SetOccupied(transform.position, false);
 
         //Destroy object
         Destroy(gameObject);
