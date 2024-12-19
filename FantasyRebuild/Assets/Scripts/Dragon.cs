@@ -67,15 +67,14 @@ public class Dragon : MonoBehaviour
     //Attacks the closest building
     public void Attack()
     {
-        target = getClosestBuilding();    //gets closest building, set as target
+        Building target = getClosestBuilding();    //gets closest building, set as target
 
         Debug.Log(Vector3.Distance(gameObject.transform.position, target.transform.position));
-        Debug.Log(target.position);
 
         //while (!currentPos.Equals(target.transform.position)) {
-        while (Vector3.Distance(gameObject.transform.position, target.position) > 0.25) {
+        while (Vector3.Distance(gameObject.transform.position, target.transform.position) > 0.25) {
             Debug.Log("move toward");
-        moveToward(target); }                 //calls moveToward function until position is equal to target
+        moveToward(target.transform); }                 //calls moveToward function until position is equal to target
 
         // Hover -> land animation
         anim.SetBool("Hover", false);
@@ -118,9 +117,9 @@ public class Dragon : MonoBehaviour
     }
 
     //calculates the closest building
-    public Transform getClosestBuilding()
+    public Building getClosestBuilding()
     {
-        Transform closestTarget = null;             //initialize closest target
+        Building closestTarget = null;             //initialize closest target
         float closestDistanceSqr = Mathf.Infinity;
 
         foreach (Building potentialTarget in player.buildingList)
@@ -130,9 +129,11 @@ public class Dragon : MonoBehaviour
             if (dSqrToTarget < closestDistanceSqr)
             {
                 closestDistanceSqr = dSqrToTarget;                              //set closestDistanceSqr to current building distance
-                closestTarget = potentialTarget.transform;                      //set closestTarget to current building
+                closestTarget = potentialTarget;                      //set closestTarget to current building
             }
         }
+
+        Debug.Log(closestTarget.transform.position);
         return closestTarget;
     }
     

@@ -276,6 +276,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3822662234532070413, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8da6d95a411ecf648b23733d797c32c0, type: 3}
     - target: {fileID: 8129903324284064771, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
@@ -1591,6 +1595,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029353492}
     m_Modifications:
+    - target: {fileID: 326765062624159503, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
+      propertyPath: m_Text
+      value: Enhancer
+      objectReference: {fileID: 0}
     - target: {fileID: 1347122574615428172, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
       propertyPath: m_Name
       value: Button Magic Building
@@ -1683,6 +1691,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3822662234532070413, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a424b9badbf8355459721a814aa7955c, type: 3}
     - target: {fileID: 8129903324284064771, guid: b5f139ce8b71ddc40bbe80ef8ff3a2c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 5
