@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ResourceBuilding : Building
 {
@@ -11,5 +12,12 @@ public class ResourceBuilding : Building
     public virtual void Collect()
     {
         stock = 0;
+    }
+
+    private void OnMouseDown()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;  //don't click through ui
+
+        Collect();
     }
 }

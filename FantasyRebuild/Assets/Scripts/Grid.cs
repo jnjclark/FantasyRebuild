@@ -68,10 +68,10 @@ public class Grid : MonoBehaviour
     //check if a cell is occupied
     public bool GetOccupied(int x, int y)
     {
-        if (buildingPlacement[x, y] == 'o') return true;            //occupied
-        else if (buildingPlacement[x, y] == 'e') return false;      //empty
-        else    
-            Debug.LogError("buildingPlacement " + x.ToString() + ", " + y.ToString() + " not marked empty or occupied");    //should not happen
+        //if (buildingPlacement[x, y] == 'o') return true;            //occupied
+        //else if (buildingPlacement[x, y] == 'e') return false;      //empty
+        //else    
+        //    Debug.LogError("buildingPlacement " + x.ToString() + ", " + y.ToString() + " not marked empty or occupied");    //should not happen
         return false;
     }
 
@@ -91,8 +91,8 @@ public class Grid : MonoBehaviour
 
         while (found == false)
         {
-            x = Random.Range(0, width + 1);     //+1 because max range is not inclusive
-            y = Random.Range(0, height + 1);
+            x = Random.Range(0, width);     
+            y = Random.Range(0, height);
 
             if (GetOccupied(x, y) == false)
                 found = true;

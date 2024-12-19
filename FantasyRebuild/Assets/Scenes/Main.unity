@@ -2282,11 +2282,11 @@ MonoBehaviour:
   dayLength: 60
   dragonCount: 2
   gameLength: 10
-  dragon: {fileID: 0}
+  dragon: {fileID: 3991037403366228926, guid: 293494e45a142954faf94cda14389e1e, type: 3}
   dragonStart: {x: 0, y: 0}
-  woodNode: {fileID: 0}
-  stoneNode: {fileID: 0}
-  magicNode: {fileID: 0}
+  woodNode: {fileID: 1211122368756110731, guid: 35a9557ef3922b244bfa7e4e0c3f8e02, type: 3}
+  stoneNode: {fileID: 6328452377752904428, guid: 725eed54feed4c44197e62606677a095, type: 3}
+  magicNode: {fileID: 868428384857708369, guid: 09df5bb8068d2d84e8beb42170ef6ac4, type: 3}
 --- !u!114 &1146257328
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -54,13 +54,6 @@ public class House : Building
     public override void OnPlaced()
     {
         base.OnPlaced();
-
-        occupation = 0;
-        health = 100;
-        score = 50;
-        woodCost = 75;
-        stoneCost = 20;
-        magicCost = 0;
     }
 
 }

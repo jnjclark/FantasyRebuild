@@ -10,12 +10,7 @@ public class WoodBuilding : ResourceBuilding
     {
         //set inventory
         inventory = Inventory.instance;
-        refreshRate = 60;
-        health = 100;
-        score = 100;
-        woodCost = 75;
-        stoneCost = 25;
-        magicCost = 0;
+
     }
     private void Update()
     {

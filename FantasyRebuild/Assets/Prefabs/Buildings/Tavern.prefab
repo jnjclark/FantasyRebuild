@@ -46,12 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c046d69ddd961e44877822ca8791783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  woodCost: 0
-  stoneCost: 0
-  magicCost: 0
-  score: 0
-  happiness: 0
+  health: 100
+  woodCost: 100
+  stoneCost: 30
+  magicCost: 5
+  score: 150
+  happiness: 20
 --- !u!61 &348714534347581689
 BoxCollider2D:
   m_ObjectHideFlags: 0

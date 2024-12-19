@@ -11,12 +11,6 @@ public class Tavern : Building
         base.OnPlaced();
 
         player.AddHappiness(happiness);
-
-        health = 100;
-        score = 150;
-        woodCost = 100;
-        stoneCost = 30;
-        magicCost = 5;
     }
 
     public override void DestroySelf()

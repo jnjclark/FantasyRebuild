@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ResourceNode : MonoBehaviour
 {
@@ -18,8 +19,15 @@ public class ResourceNode : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void AddResource()
+    public virtual void Collect()
     {
-        
+        RemoveCharge();
+    }
+
+    private void OnMouseDown()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;  //don't click through ui
+
+        Collect();
     }
 }

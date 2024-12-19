@@ -91,13 +91,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a2e12e7c576f74f8b0309978a50b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  woodCost: 0
-  stoneCost: 0
+  health: 100
+  woodCost: 75
+  stoneCost: 25
   magicCost: 0
-  score: 0
-  refreshRate: 0.6
-  capacity: 0
+  score: 100
+  refreshRate: 10
+  capacity: 50
   stock: 0
 --- !u!1 &2724110496316930290
 GameObject:

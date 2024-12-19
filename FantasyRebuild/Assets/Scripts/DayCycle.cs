@@ -50,6 +50,8 @@ public class DayCycle : MonoBehaviour, iDataPersistence
 
         dayLength = 120f;
         gameLength = 21;
+
+        AddResources();
     }
     
     // Update is called once per frame
@@ -89,17 +91,17 @@ public class DayCycle : MonoBehaviour, iDataPersistence
         //wood
         Vector2 place = grid.RandomFreeTransform();
         Instantiate(woodNode, place, Quaternion.identity);
-        grid.SetOccupied(place, true); // Mark the position as occupied
+        //grid.SetOccupied(place, true); // Mark the position as occupied
 
         //stone
         place = grid.RandomFreeTransform();
         Instantiate(stoneNode, place, Quaternion.identity);
-        grid.SetOccupied(place, true); // Mark the position as occupied
+        //grid.SetOccupied(place, true); // Mark the position as occupied
 
         //magic
         place = grid.RandomFreeTransform();
         Instantiate(magicNode, place, Quaternion.identity);
-        grid.SetOccupied(place, true); // Mark the position as occupied
+        //grid.SetOccupied(place, true); // Mark the position as occupied
     }
 
     void TriggerDragon()

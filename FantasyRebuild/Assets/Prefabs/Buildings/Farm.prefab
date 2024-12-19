@@ -91,12 +91,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16db622ac6d9d1d4092eb822e00355d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  woodCost: 5
-  stoneCost: 0
-  magicCost: 0
-  score: 0
-  happiness: 0
+  health: 100
+  woodCost: 100
+  stoneCost: 50
+  magicCost: 15
+  score: 200
+  happiness: 10
   productionIncrease: 0
 --- !u!1 &8744023376192271291
 GameObject:
