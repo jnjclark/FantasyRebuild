@@ -49,7 +49,7 @@ public class DayCycle : MonoBehaviour, iDataPersistence
         gm = GM.instance;
 
         dayLength = 120f;
-        gameLength = 11;
+        gameLength = 21;
     }
     
     // Update is called once per frame

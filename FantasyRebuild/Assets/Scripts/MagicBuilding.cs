@@ -10,8 +10,22 @@ public class MagicBuilding : ResourceBuilding
     {
         //set inventory
         inventory = Inventory.instance;
+
+        refreshRate = 60;
+        health = 100;
+        score = 200;
+        woodCost = 150;
+        stoneCost = 75;
+        magicCost = 50;
     }
 
+    private void Update()
+    {
+        //if building is not full
+        if (stock! >= capacity)
+            //add to stock every refreshRate seconds
+            if (Time.deltaTime % refreshRate == 0) stock += 2 + (int)player.totalProductionBoost;
+    }
     public override void Collect()
     {
         inventory.AddMagic(stock);

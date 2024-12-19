@@ -11,10 +11,15 @@ public class MagicNode : ResourceNode
         inventory = Inventory.instance;
     }
 
-    public override void RemoveResource(int amount)
+    public override void RemoveCharge()
     {
-        inventory.AddMagic(amount);
+        base.RemoveCharge();
+        AddResource();
+        if (base.charges <= 0) DestroySelf();
+    }
 
-        base.RemoveResource(amount);
+    public override void AddResource()
+    {
+        inventory.AddMagic(10);
     }
 }
