@@ -8,12 +8,6 @@ public class ResourceBuilding : Building
     public int capacity;        //maximum capacity of the building
     public int stock;           //current amount of resources in the building
 
-    private void Update()
-    {
-        //add one to stock every refreshRate seconds
-        if (Time.deltaTime % refreshRate == 0) stock += 1;
-    }
-
     public virtual void Collect()
     {
         stock = 0;

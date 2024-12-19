@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class House : Building
 {
-    public int capacity;    //max amount of people in the house
+    public int capacity = 10;    //max amount of people in the house
     public int occupation;  //current amount of people in the house
 
     public bool AddPerson()
@@ -37,7 +37,7 @@ public class House : Building
     {
         occupation = 0;
     }
-    
+
     public void SetOccupation(int i)
     {
         occupation = i;
@@ -49,6 +49,18 @@ public class House : Building
         player.RemoveHouseList(this);
 
         base.DestroySelf();
+    }
+
+    public override void OnPlaced()
+    {
+        base.OnPlaced();
+
+        occupation = 0;
+        health = 100;
+        score = 50;
+        woodCost = 75;
+        stoneCost = 20;
+        magicCost = 0;
     }
 
 }
